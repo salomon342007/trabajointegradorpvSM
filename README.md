@@ -1,3 +1,4 @@
 Trabajo Practico Integrado
 Integrantes:
-Diaz Francisco
+Diaz Francisco - FranciscoDiaz-01
+git

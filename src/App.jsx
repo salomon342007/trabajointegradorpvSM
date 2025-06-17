@@ -1,11 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
-import { ProductProvider } from './context/ProductContext';
-import Home from './pages/Home';
-import Favorites from './pages/Favorites';
-import ProductDetail from './pages/ProductDetail';
-import ProductForm from './pages/ProductForm';
+import { ProductProvider } from '/src/ProductContext';
+import Home from '/src/Home';
+import Favorites from '/src/Favorites';
+import ProductDetail from '/src/ProductDetail';
+import ProductForm from '/src/ProductForm';
 
 const App = () => {
   return (

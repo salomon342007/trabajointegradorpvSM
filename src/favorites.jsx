@@ -1,6 +1,7 @@
 import { useContext } from 'react';
-import { ProductContext } from '../context/ProductContext';
+import { ProductContext } from '/src/ProductContext';
 import { useNavigate } from 'react-router-dom'; 
+
 
 const Favorites = () => {
   const { products, favorites } = useContext(ProductContext); // Obtiene productos y lista de IDs favoritos desde el contexto

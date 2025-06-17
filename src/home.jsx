@@ -2,6 +2,7 @@ import { useContext } from 'react';
 import { ProductContext } from '/src/ProductContext';
 import { useNavigate } from 'react-router-dom';
 
+
 const Home = () => {
   const { products, toggleFavorite, favorites } = useContext(ProductContext);
   const navigate = useNavigate();

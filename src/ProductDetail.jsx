@@ -9,6 +9,7 @@ const ProductDetail = () => {
 
   if (!product) return <p>Producto no encontrado</p>;
 
+  
   return (
     <div>
       <h2>{product.name}</h2>

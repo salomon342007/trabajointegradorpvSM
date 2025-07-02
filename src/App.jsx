@@ -3,3 +3,4 @@ import { BrowserRouter as Router } from 'react-router-dom';
 import { AuthProvider } from './context/AuthContext';
 import { ProductosProvider } from './context/ProductosContext';
 import AppRoutes from './AppRoutes';
+import './App.css'; // estilos de navegación, main, etc.

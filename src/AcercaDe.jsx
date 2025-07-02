@@ -15,3 +15,8 @@ const AcercaDe = () => (
       <li>Agregar / Editar / Borrar (con papelera y restauración)</li>
       <li>Marcar productos como favoritos</li>
       <li>Detalle de producto con imagen vía URL</li>
+      <li>Autenticación básica (login/logout)</li>
+    </ul>
+    <p>Incluye tus carpetas si quieres AQUI¡.</p>
+  </div>
+);

@@ -14,3 +14,4 @@ import Login from './Login';
 import AdminRoute from './routes/AdminRoute';
 const AppRoutes = () => (
   <Routes>
+    <Route path="/login" element={<Login />} />

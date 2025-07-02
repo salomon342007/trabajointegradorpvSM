@@ -8,3 +8,6 @@ const Inicio = () => {
       <p>Usa el menú para navegar: Productos, Mis Favoritos, Edición o Nosotros.</p>
     </div>
   );
+  };
+
+export default Inicio;

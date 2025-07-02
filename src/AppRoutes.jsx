@@ -11,7 +11,7 @@ import EditarProducto from './EditarProducto';
 import Papelera from './Papelera';
 import AcercaDe from './AcercaDe';
 import Login from './Login';
-import AdminRoute from './';
+import AdminRoute from './routes/AdminRoute';
 const AppRoutes = () => (
   <Routes>
     <Route path="/login" element={<Login />} />

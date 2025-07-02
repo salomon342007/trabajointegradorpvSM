@@ -19,4 +19,13 @@ const Layout = () => {
             {/* Aquí podrías poner una img de logo */}
             ShoppiNine
           </Link>
+          {/* Links de navegación */}
+          <nav>
+            <Link to="/" style={{ margin: '0 8px' }}>Inicio</Link>
+            <Link to="/productos" style={{ margin: '0 8px' }}>Productos</Link>
+            <Link to="/favoritos" style={{ margin: '0 8px' }}>Mis Favoritos</Link>
+            <Link to="/edicion" style={{ margin: '0 8px' }}>Edición</Link>
+            <Link to="/acerca" style={{ margin: '0 8px' }}>Nosotros</Link>
+          </nav>
+        </div>
 

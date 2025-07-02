@@ -11,3 +11,16 @@ export const ProductosProvider = ({ children }) => {
     // Se espera objeto { name, price, description, category, image }
     setProductos(prev => [...prev, { ...producto, id: Date.now() }]);
   };
+  const editProducto = (productoActualizado) => {
+    setProductos(prev =>
+      prev.map(p => p.id === productoActualizado.id ? productoActualizado : p)
+    );
+  };
+
+  const deleteProducto = (id) => {
+    const idx = productos.findIndex(p => p.id === id);
+    if (idx < 0) return;
+    const prod = productos[idx];
+    setPapelera(prev => [...prev, { producto: prod, index: idx }]);
+    setProductos(prev => prev.filter(p => p.id !== id));
+  };

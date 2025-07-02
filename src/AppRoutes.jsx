@@ -21,3 +21,14 @@ const AppRoutes = () => (
         <Route path="/productos" element={<Productos />} />
         <Route path="/favoritos" element={<Favoritos />} />
         <Route path="/edicion" element={<Edicion />} />
+        <Route path="/nuevo" element={<NuevoProducto />} />
+        <Route path="/editar/:id" element={<EditarProducto />} />
+        <Route path="/product/:id" element={<VerDetalles />} />
+        <Route path="/papelera" element={<Papelera />} />
+        <Route path="/acerca" element={<AcercaDe />} />
+      </Route>
+    </Route>
+  </Routes>
+);
+
+export default AppRoutes;

@@ -60,4 +60,69 @@ const Edicion = () => {
       addProducto(productoData);
       alert('Producto agregado');
     }
-    
+   
+    // Limpiar form
+    setForm({ id: null, name: '', price: '', category: '', image: '', description: '' });
+  };
+
+  const handleDelete = (id) => {
+    if (window.confirm('¿Seguro que deseas borrar este producto?')) {
+      deleteProducto(id);
+    }
+  };
+
+  return (
+    <div>
+      <h2>Edición de Productos</h2>
+      <form onSubmit={handleSubmit} style={{ display: 'flex', flexWrap: 'wrap', gap: '12px', marginBottom: '20px' }}>
+        <input
+          name="name"
+          value={form.name}
+          onChange={handleChange}
+          placeholder="Título"
+          style={{ flex: '1 1 200px', padding: '8px' }}
+          required
+        />
+        <input
+          name="price"
+          value={form.price}
+          onChange={handleChange}
+          placeholder="Precio"
+          style={{ flex: '1 1 100px', padding: '8px' }}
+          required
+        />
+        <input
+          name="category"
+          value={form.category}
+          onChange={handleChange}
+          placeholder="Categoría"
+          style={{ flex: '1 1 150px', padding: '8px' }}
+        />
+        <input
+          name="image"
+          value={form.image}
+          onChange={handleChange}
+          placeholder="URL de imagen"
+          style={{ flex: '1 1 200px', padding: '8px' }}
+        />
+        <textarea
+          name="description"
+          value={form.description}
+          onChange={handleChange}
+          placeholder="Descripción"
+          style={{ flex: '1 1 100%', padding: '8px' }}
+          rows={3}
+        />
+        <button type="submit" style={{
+          padding: '10px 16px',
+          backgroundColor: '#2ecc71',
+          color: '#fff',
+          border: 'none',
+          borderRadius: '4px',
+          cursor: 'pointer'
+        }}>
+          {form.id ? 'Guardar Cambios' : 'Agregar Producto'}
+        </button>
+      </form>
+
+      

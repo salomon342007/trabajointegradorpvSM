@@ -28,4 +28,32 @@ const Layout = () => {
             <Link to="/acerca" style={{ margin: '0 8px' }}>Nosotros</Link>
           </nav>
         </div>
+        <div>
+          {user ? (
+            <>
+              <span>Hola, {user.username}</span>
+              <button onClick={logout} style={{
+                marginLeft: '10px',
+                padding: '6px 12px',
+                backgroundColor: '#e74c3c',
+                color: '#fff',
+                border: 'none',
+                borderRadius: '4px',
+                cursor: 'pointer'
+              }}>
+                Cerrar Sesión
+              </button>
+            </>
+          ) : (
+            <Link to="/login" style={{
+              padding: '6px 12px',
+              backgroundColor: '#3498db',
+              color: '#fff',
+              borderRadius: '4px',
+              textDecoration: 'none'
+            }}>
+              Login
+            </Link>
+          )}
+        </div>
 

@@ -24,3 +24,36 @@ export const ProductosProvider = ({ children }) => {
     setPapelera(prev => [...prev, { producto: prod, index: idx }]);
     setProductos(prev => prev.filter(p => p.id !== id));
   };
+ const restoreProducto = (id) => {
+    const entry = papelera.find(e => e.producto.id === id);
+    if (!entry) return;
+    setPapelera(prev => prev.filter(e => e.producto.id !== id));
+    setProductos(prev => {
+      const nuevos = [...prev];
+      const pos = Math.min(entry.index, nuevos.length);
+      nuevos.splice(pos, 0, entry.producto);
+      return nuevos;
+    });
+  };
+
+  const toggleFavorito = (id) => {
+    setFavoritos(prev =>
+      prev.includes(id) ? prev.filter(f => f !== id) : [...prev, id]
+    );
+  };
+
+  return (
+    <ProductosContext.Provider value={{
+      productos,
+      favoritos,
+      papelera,
+      addProducto,
+      editProducto,
+      deleteProducto,
+      restoreProducto,
+      toggleFavorito
+    }}>
+      {children}
+    </ProductosContext.Provider>
+  );
+};

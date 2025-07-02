@@ -12,3 +12,5 @@ import Papelera from './Papelera';
 import AcercaDe from './AcercaDe';
 import Login from './Login';
 import AdminRoute from './routes/AdminRoute';
+const AppRoutes = () => (
+  <Routes>

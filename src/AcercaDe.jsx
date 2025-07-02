@@ -20,3 +20,4 @@ const AcercaDe = () => (
     <p>Incluye tus carpetas si quieres AQUI¡.</p>
   </div>
 );
+export default AcercaDe;

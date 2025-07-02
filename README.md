@@ -4,3 +4,6 @@ Modena Stefano: Salomon342007
 Fernandez Jorge Lautaro: Colturas
 Bazan Jamal: Jamaledm
 Rueda Thiago: thiax
+
+descripcion del tp:
+p

@@ -11,6 +11,9 @@ const VerDetalles = () => {
   return (
     <div>
       <h2>Detalle: {p.name}</h2>
+<<<<<<< HEAD
+      {p.image && <img src={p.image} alt={p.name} style={{ width: '200px', objectFit: 'cover', marginBottom: '12px' }} />}
+=======
       {p.image && (
         <img
           src={p.image}
@@ -18,6 +21,7 @@ const VerDetalles = () => {
           style={{ width: '200px', objectFit: 'cover', marginBottom: '12px' }}
         />
       )}
+>>>>>>> a63aeae09ddaeea0e58ecc605530e8503a0ae05b
       <p><strong>Descripción:</strong> {p.description}</p>
       <p><strong>Precio:</strong> ${p.price}</p>
       <p><strong>Categoría:</strong> {p.category}</p>
@@ -33,4 +37,7 @@ const VerDetalles = () => {
 };
 
 export default VerDetalles;
+<<<<<<< HEAD
+=======
 // Este componente muestra los detalles de un producto específico, incluyendo su imagen, descripción, precio y categoría.
+>>>>>>> a63aeae09ddaeea0e58ecc605530e8503a0ae05b

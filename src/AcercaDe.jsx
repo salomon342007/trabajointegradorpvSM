@@ -8,3 +8,10 @@ const AcercaDe = () => (
     <ul>
       <li>Desarrollador A - rol/email</li>
       <li>Desarrollador B - rol/email</li>
+    </ul>
+    <p>Funcionalidades:</p>
+    <ul>
+      <li>Listado de productos</li>
+      <li>Agregar / Editar / Borrar (con papelera y restauración)</li>
+      <li>Marcar productos como favoritos</li>
+      <li>Detalle de producto con imagen vía URL</li>

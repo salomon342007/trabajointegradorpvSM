@@ -15,3 +15,4 @@ import AdminRoute from './routes/AdminRoute';
 const AppRoutes = () => (
   <Routes>
     <Route path="/login" element={<Login />} />
+    <Route element={<AdminRoute />}>

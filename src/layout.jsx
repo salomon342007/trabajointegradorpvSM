@@ -56,4 +56,13 @@ const Layout = () => {
             </Link>
           )}
         </div>
+      </header>
+      <main style={{ padding: '20px' }}>
+        <Outlet />
+      </main>
+    </div>
+  );
+};
+
+export default Layout;
 

@@ -8,3 +8,25 @@ const EditarProducto = () => {
   const { id } = useParams();
   const editing = productos.find(p => p.id === parseInt(id));
 
+
+  const [form, setForm] = useState({
+    name: '',
+    price: '',
+    category: '',
+    image: '',
+    description: ''
+  });
+
+  useEffect(() => {
+    if (editing) {
+      setForm({
+        name: editing.name,
+        price: editing.price,
+        category: editing.category,
+        image: editing.image,
+        description: editing.description
+      });
+    }
+  }, [editing]);
+
+  

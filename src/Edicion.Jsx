@@ -36,3 +36,28 @@ const Edicion = () => {
   };
 
   
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    // Validar campos básicos no vacíos
+    if (!form.name.trim() || !form.price.trim()) {
+      alert('Nombre y precio son obligatorios');
+      return;
+    }
+    // Construir objeto producto
+    const productoData = {
+      id: form.id,
+      name: form.name.trim(),
+      price: form.price.trim(),
+      category: form.category.trim(),
+      image: form.image.trim(),
+      description: form.description.trim()
+    };
+    if (form.id) {
+      editProducto(productoData);
+      alert('Producto editado');
+    } else {
+      addProducto(productoData);
+      alert('Producto agregado');
+    }
+    

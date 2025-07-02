@@ -16,4 +16,23 @@ const Edicion = () => {
     description: ''
   });
 
- 
+
+  // Cuando se hace click en "Editar" de un producto de la lista, pre-cargar en el form
+  const handlePreload = (p) => {
+    setForm({
+      id: p.id,
+      name: p.name,
+      price: p.price,
+      category: p.category,
+      image: p.image,
+      description: p.description
+    });
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setForm(prev => ({ ...prev, [name]: value }));
+  };
+
+  

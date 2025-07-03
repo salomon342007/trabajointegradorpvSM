@@ -10,7 +10,9 @@ export const AuthProvider = ({ children }) => {
     const usuarios = JSON.parse(localStorage.getItem('usuarios') || '[]');
     const userFound = usuarios.find(u => u.username === username && u.password === password);
     if (userFound) {
-      setUser({ username });
+      // Si el usuario es 'admin', es administrador
+      const isAdmin = userFound.username === 'admin';
+      setUser({ username: userFound.username, isAdmin });
       return true;
     } else {
       return false;
@@ -21,8 +23,11 @@ export const AuthProvider = ({ children }) => {
     setUser(null);
   };
 
+  // isAdmin ahora depende del campo en el usuario
+  const isAdmin = user && user.isAdmin;
+
   return (
-    <AuthContext.Provider value={{ user, login, logout }}>
+    <AuthContext.Provider value={{ user, login, logout, isAdmin }}>
       {children}
     </AuthContext.Provider>
   );

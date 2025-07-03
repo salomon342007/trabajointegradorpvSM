@@ -1,10 +1,16 @@
 import React, { useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ProductosContext } from './context/ProductosContext';
+import { AuthContext } from './context/AuthContext';
 
 const Papelera = () => {
   const { papelera, restoreProducto } = useContext(ProductosContext);
+  const { user, isAdmin } = useContext(AuthContext);
   const navigate = useNavigate();
+
+  if (!isAdmin) {
+    return <p style={{ color: '#e74c3c' }}>Acceso solo para administradores.</p>;
+  }
 
   return (
     <div>
@@ -45,4 +51,5 @@ const Papelera = () => {
     </div>
   );
 };
+
 export default Papelera;

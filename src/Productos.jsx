@@ -1,23 +1,25 @@
 import React, { useContext, useEffect, useState, useMemo } from 'react';
 import { ProductosContext } from './context/ProductosContext';
 import { useNavigate } from 'react-router-dom';
+import { AuthContext } from './context/AuthContext';
+import { CarritoContext } from './context/CarritoContext';
 
 const Productos = () => {
   const { productos, setProductos, favoritos, toggleFavorito } = useContext(ProductosContext);
   const [filtro, setFiltro] = useState('todos');
   const navigate = useNavigate();
+  const { isAdmin } = useContext(AuthContext);
+  const { addToCarrito } = useContext(CarritoContext);
 
   useEffect(() => {
     fetch('https://fakestoreapi.com/products')
       .then(res => res.json())
-      .then(data => setProductos(data)) // usa el contexto
+      .then(data => setProductos(data))
       .catch(err => console.error(err));
   }, []);
 
-  // Filtro con useMemo
   const productosFiltrados = useMemo(() => {
     if (filtro === 'tecnologia') {
-      // Puedes ajustar los nombres de categoría según la API
       return productos.filter(p =>
         p.category.toLowerCase().includes('electronics')
       );
@@ -33,63 +35,87 @@ const Productos = () => {
   return (
     <div>
       <h2>Todos los Productos</h2>
-      <div style={{ marginBottom: '16px' }}>
+      <div style={{ marginBottom: '16px', display: 'flex', flexWrap: 'wrap', gap: '8px' }}>
         <button
           onClick={() => setFiltro('todos')}
-          style={{ marginRight: '8px', background: filtro === 'todos' ? '#3498db' : '#eee', color: filtro === 'todos' ? '#fff' : '#222' }}
+          style={{ background: filtro === 'todos' ? '#3498db' : '#eee', color: filtro === 'todos' ? '#fff' : '#222', padding: '8px 16px', border: 'none', borderRadius: '4px', cursor: 'pointer' }}
         >
           Todos
         </button>
         <button
           onClick={() => setFiltro('tecnologia')}
-          style={{ marginRight: '8px', background: filtro === 'tecnologia' ? '#3498db' : '#eee', color: filtro === 'tecnologia' ? '#fff' : '#222' }}
+          style={{ background: filtro === 'tecnologia' ? '#3498db' : '#eee', color: filtro === 'tecnologia' ? '#fff' : '#222', padding: '8px 16px', border: 'none', borderRadius: '4px', cursor: 'pointer' }}
         >
           Tecnología
         </button>
         <button
           onClick={() => setFiltro('ropa')}
-          style={{ background: filtro === 'ropa' ? '#3498db' : '#eee', color: filtro === 'ropa' ? '#fff' : '#222' }}
+          style={{ background: filtro === 'ropa' ? '#3498db' : '#eee', color: filtro === 'ropa' ? '#fff' : '#222', padding: '8px 16px', border: 'none', borderRadius: '4px', cursor: 'pointer' }}
         >
           Ropa
+        </button>
+        <button
+          onClick={() => navigate('/carrito')}
+          style={{ background: '#2ecc71', color: '#fff', padding: '8px 16px', border: 'none', borderRadius: '4px', cursor: 'pointer', marginLeft: 'auto' }}
+        >
+          Ver Carrito
         </button>
       </div>
       {productosFiltrados.length === 0 ? (
         <p>No hay productos disponibles.</p>
       ) : (
-        productosFiltrados.map(p => (
-          <div key={p.id} style={{ border: '1px solid #ccc', borderRadius: '4px', padding: '12px', margin: '10px 0', display: 'flex', alignItems: 'center' }}>
-            {p.image && (
-              <img
-                src={p.image}
-                alt={p.title}
-                style={{ width: '100px', height: '100px', objectFit: 'cover', marginRight: '16px' }}
-              />
-            )}
-            <div style={{ flex: 1 }}>
-              <h3 style={{ margin: '0 0 8px 0' }}>{p.title}</h3>
-              <p style={{ margin: '0 0 4px 0' }}><strong>Precio:</strong> ${p.price}</p>
-              <p style={{ margin: '0 0 4px 0' }}><strong>Categoría:</strong> {p.category}</p>
-              <p style={{ margin: '0 0 8px 0' }}>{p.description}</p>
-              <button onClick={() => navigate(`/product/${p.id}`)} style={{
-                marginRight: '8px',
-                padding: '6px 12px',
-                backgroundColor: '#3498db',
-                color: '#fff',
-                border: 'none',
-                borderRadius: '4px',
-                cursor: 'pointer'
-              }}>Detalles</button>
-              <label style={{ marginLeft: '8px', display: 'inline-flex', alignItems: 'center', gap: '4px', fontSize: '1rem' }}>
-                <input
-                  type="checkbox"
-                  checked={favoritos.includes(p.id)}
-                  onChange={() => toggleFavorito(p.id)}
-                  style={{ verticalAlign: 'middle' }}
-                /> Mis Favoritos
-              </label>
+        <div style={{ display: 'flex', flexWrap: 'wrap', gap: '16px' }}>
+          {productosFiltrados.map(p => (
+            <div key={p.id} style={{ border: '1px solid #ccc', borderRadius: '4px', padding: '12px', margin: '10px 0', display: 'flex', flexDirection: 'column', alignItems: 'center', width: '260px', minHeight: '420px', background: '#fafafa' }}>
+              {p.image && (
+                <img
+                  src={p.image}
+                  alt={p.title}
+                  style={{ width: '120px', height: '120px', objectFit: 'cover', marginBottom: '12px' }}
+                />
+              )}
+              <div style={{ flex: 1, width: '100%' }}>
+                <h3 style={{ margin: '0 0 8px 0', fontSize: '1.1rem' }}>{p.title}</h3>
+                <p style={{ margin: '0 0 4px 0' }}><strong>Precio:</strong> ${p.price}</p>
+                <p style={{ margin: '0 0 4px 0' }}><strong>Categoría:</strong> {p.category}</p>
+                <p style={{ margin: '0 0 8px 0', fontSize: '0.95rem', color: '#555' }}>{p.description}</p>
+                <button onClick={() => navigate(`/product/${p.id}`)} style={{
+                  marginRight: '8px',
+                  padding: '6px 12px',
+                  backgroundColor: '#3498db',
+                  color: '#fff',
+                  border: 'none',
+                  borderRadius: '4px',
+                  cursor: 'pointer',
+                  marginBottom: '8px'
+                }}>Detalles</button>
+                <button
+                  onClick={() => addToCarrito(p)}
+                  style={{
+                    backgroundColor: '#27ae60',
+                    color: '#fff',
+                    border: 'none',
+                    borderRadius: '4px',
+                    padding: '6px 12px',
+                    cursor: 'pointer',
+                    width: '100%',
+                    marginBottom: '8px'
+                  }}
+                >
+                  Agregar al carrito
+                </button>
+                <label style={{ display: 'inline-flex', alignItems: 'center', gap: '4px', fontSize: '1rem' }}>
+                  <input
+                    type="checkbox"
+                    checked={favoritos.includes(p.id)}
+                    onChange={() => toggleFavorito(p.id)}
+                    style={{ verticalAlign: 'middle' }}
+                  /> Mis Favoritos
+                </label>
+              </div>
             </div>
-          </div>
-        ))
+          ))}
+        </div>
       )}
     </div>
   );

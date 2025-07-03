@@ -4,7 +4,7 @@ import { AuthContext } from './context/AuthContext';
 import logo from './pictures/logo.jpg'; // importa el logo
 
 const Layout = () => {
-  const { user, logout } = useContext(AuthContext);
+  const { user, isAdmin, logout } = useContext(AuthContext);
   return (
     <div style={{ fontFamily: "'Times New Roman', Times, serif" }}>
       <header style={{
@@ -25,8 +25,8 @@ const Layout = () => {
             <Link to="/" style={{ margin: '0 8px' }}>Inicio</Link>
             <Link to="/productos" style={{ margin: '0 8px' }}>Productos</Link>
             <Link to="/favoritos" style={{ margin: '0 8px' }}>Mis Favoritos</Link>
-            <Link to="/edicion" style={{ margin: '0 8px' }}>Edición</Link>
-            <Link to="/papelera" style={{ margin: '0 8px' }}>Papelera</Link>
+            {isAdmin && <Link to="/edicion" style={{ margin: '0 8px' }}>Edición</Link>}
+            {isAdmin && <Link to="/papelera" style={{ margin: '0 8px' }}>Papelera</Link>}
             <Link to="/acerca" style={{ margin: '0 8px' }}>Nosotros</Link>
           </nav>
         </div>

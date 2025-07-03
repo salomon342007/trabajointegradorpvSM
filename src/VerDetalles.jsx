@@ -4,24 +4,35 @@ import { ProductosContext } from './context/ProductosContext';
 
 const VerDetalles = () => {
   const { id } = useParams();
-  const { productos, favoritos, toggleFavorito } = useContext(ProductosContext);
-  const p = productos.find(item => item.id === parseInt(id));
+  const { productos, favoritos, toggleFavorito, papelera } = useContext(ProductosContext);
+  let p = productos.find(item => item.id === parseInt(id));
+  let enPapelera = false;
+  // Si no se encuentra en productos, buscar en papelera
+  if (!p && papelera) {
+    const entry = papelera.find(entry => entry.producto.id === parseInt(id));
+    if (entry) {
+      p = entry.producto;
+      enPapelera = true;
+    }
+  }
   if (!p) return <p>Producto no encontrado.</p>;
 
   return (
     <div>
-      <h2>Detalle: {p.name}</h2>
-      {p.image && <img src={p.image} alt={p.name} style={{ width: '200px', objectFit: 'cover', marginBottom: '12px' }} />}
+      <h2>Detalle: {p.name && p.name.trim() ? p.name : (p.title && p.title.trim() ? p.title : 'Sin nombre')}</h2>
+      {p.image && <img src={p.image} alt={p.name || p.title || 'Sin nombre'} style={{ width: '200px', objectFit: 'cover', marginBottom: '12px' }} />}
       <p><strong>Descripción:</strong> {p.description}</p>
       <p><strong>Precio:</strong> ${p.price}</p>
       <p><strong>Categoría:</strong> {p.category}</p>
-      <label style={{ display: 'block', marginTop: '12px' }}>
-        <input
-          type="checkbox"
-          checked={favoritos.includes(p.id)}
-          onChange={() => toggleFavorito(p.id)}
-        /> Marcar como Favorito
-      </label>
+      {!enPapelera && (
+        <label style={{ display: 'block', marginTop: '12px' }}>
+          <input
+            type="checkbox"
+            checked={favoritos.includes(p.id)}
+            onChange={() => toggleFavorito(p.id)}
+          /> Marcar como Favorito
+        </label>
+      )}
     </div>
   );
 };

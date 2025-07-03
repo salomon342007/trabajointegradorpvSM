@@ -1,5 +1,5 @@
 import React from 'react';
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, Navigate } from 'react-router-dom';
 import Layout from './Layout';
 import Inicio from './Inicio';
 import Productos from './Productos';
@@ -33,6 +33,8 @@ const AppRoutes = () => (
         <Route path="/carrito" element={<Carrito />} />
       </Route>
     </Route>
+    {/* Ruta catch-all para redirigir a login si la URL no existe */}
+    <Route path="*" element={<Navigate to="/login" replace />} />
   </Routes>
 );
 

@@ -1,11 +1,8 @@
-import React, { useContext, useEffect, useState } from 'react';
 import React, { useContext, useEffect, useState, useMemo } from 'react';
 import { ProductosContext } from './context/ProductosContext';
 import { useNavigate } from 'react-router-dom';
 
 const Productos = () => {
-  const { favoritos, toggleFavorito } = useContext(ProductosContext);
-  const [productos, setProductos] = useState([]);
   const { productos, setProductos, favoritos, toggleFavorito } = useContext(ProductosContext);
   const [filtro, setFiltro] = useState('todos');
   const navigate = useNavigate();

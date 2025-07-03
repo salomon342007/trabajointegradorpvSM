@@ -6,8 +6,11 @@ const AcercaDe = () => (
     <p>Esta SPA de gestión de productos está hecha con React, Vite, React Router  Context API.</p>
     <p>Equipo:</p>
     <ul>
-      <li>Desarrollador A - rol/email</li>
-      <li>Desarrollador B - rol/email</li>
+      <li>Stefano Modena - rol/modenastefano00@gmail.com</li>
+      <li>Francisco Diaz - rol/francisco.diaz@gmail.com</li>
+      <li>Lautaro Jorge Fernandez - rol/lautaro.fernandez@gmail.com</li>
+      <li>Jamal Bazan - rol/jamalbazan@gmail.com</li>
+      <li>Thiago Rueda - rol/thiago.rueda@gmail.com</li>
     </ul>
     <p>Funcionalidades:</p>
     <ul>

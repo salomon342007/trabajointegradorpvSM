@@ -1,17 +1,18 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { ProductosContext } from './context/ProductosContext';
 import { useNavigate } from 'react-router-dom';
 
 const Productos = () => {
-  const { productos, favoritos, toggleFavorito, setProductos } = useContext(ProductosContext);
+  const { favoritos, toggleFavorito } = useContext(ProductosContext);
+  const [productos, setProductos] = useState([]);
   const navigate = useNavigate();
 
   useEffect(() => {
-    fetch('fakestoreapi.com/products')
+    fetch('https://fakestoreapi.com/products')
       .then(res => res.json())
       .then(data => setProductos(data))
       .catch(err => console.error(err));
-  }, [setProductos]);
+  }, []);
 
   return (
     <div>

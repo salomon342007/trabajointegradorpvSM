@@ -20,7 +20,7 @@ const AcercaDe = () => (
       <li>Detalle de producto con imagen vía URL</li>
       <li>Autenticación básica (login/logout)</li>
     </ul>
-    <p>Incluye tus carpetas si quieres AQUI¡.</p>
+    <p></p>
   </div>
 );
 export default AcercaDe;

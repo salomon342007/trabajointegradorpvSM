@@ -1,8 +1,9 @@
 import React, { useContext, useState, useMemo } from 'react';
 import { ProductosContext } from './context/ProductosContext';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Navigate, Routes, Route } from 'react-router-dom';
 import { AuthContext } from './context/AuthContext';
 import { CarritoContext } from './context/CarritoContext';
+import Login from './Login'; // Asegúrate de importar el componente Login
 
 const Productos = () => {
   const { productos, favoritos, toggleFavorito } = useContext(ProductosContext);
@@ -110,6 +111,10 @@ const Productos = () => {
           ))}
         </div>
       )}
+      <Routes>
+        {/* ...tus otras rutas... */}
+        <Route path="*" element={<Login />} />
+      </Routes>
     </div>
   );
 }

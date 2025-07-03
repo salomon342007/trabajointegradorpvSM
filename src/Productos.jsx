@@ -1,32 +1,25 @@
-import React, { useContext, useEffect, useState, useMemo } from 'react';
+import React, { useContext, useState, useMemo } from 'react';
 import { ProductosContext } from './context/ProductosContext';
 import { useNavigate } from 'react-router-dom';
 import { AuthContext } from './context/AuthContext';
 import { CarritoContext } from './context/CarritoContext';
 
 const Productos = () => {
-  const { productos, setProductos, favoritos, toggleFavorito } = useContext(ProductosContext);
+  const { productos, favoritos, toggleFavorito } = useContext(ProductosContext);
   const [filtro, setFiltro] = useState('todos');
   const navigate = useNavigate();
   const { isAdmin } = useContext(AuthContext);
   const { addToCarrito } = useContext(CarritoContext);
 
-  useEffect(() => {
-    fetch('https://fakestoreapi.com/products')
-      .then(res => res.json())
-      .then(data => setProductos(data))
-      .catch(err => console.error(err));
-  }, []);
-
   const productosFiltrados = useMemo(() => {
     if (filtro === 'tecnologia') {
       return productos.filter(p =>
-        p.category.toLowerCase().includes('electronics')
+        p.category && p.category.toLowerCase().includes('electronics')
       );
     }
     if (filtro === 'ropa') {
       return productos.filter(p =>
-        p.category.toLowerCase().includes('clothing')
+        p.category && p.category.toLowerCase().includes('clothing')
       );
     }
     return productos;

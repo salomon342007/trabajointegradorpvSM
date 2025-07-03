@@ -10,7 +10,7 @@ const AcercaDe = () => (
       <li>Francisco Diaz - FranciscoDiaz-01/francisco.diaz@gmail.com</li>
       <li>Lautaro Jorge Fernandez - Colturas/lautaro.fernandez@gmail.com</li>
       <li>Jamal Bazan - Jamaledm/jamalbazan@gmail.com</li>
-      <li>Tiago rueda - Ghia/thiago.rueda@gmail.com</li>
+      <li>Thiago Rueda - Thiax/thiago.rueda@gmail.com</li>
     </ul>
     <p>Funcionalidades:</p>
     <ul>

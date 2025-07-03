@@ -6,8 +6,15 @@ export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
 
   const login = (username, password) => {
-    // Ejemplo sencillo: acepta cualquier credencial
-    setUser({ username });
+    // Busca el usuario en localStorage
+    const usuarios = JSON.parse(localStorage.getItem('usuarios') || '[]');
+    const userFound = usuarios.find(u => u.username === username && u.password === password);
+    if (userFound) {
+      setUser({ username });
+      return true;
+    } else {
+      return false;
+    }
   };
 
   const logout = () => {

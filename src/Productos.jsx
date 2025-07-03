@@ -34,11 +34,12 @@ const Productos = () => {
                 borderRadius: '4px',
                 cursor: 'pointer'
               }}>Detalles</button>
-              <label style={{ marginLeft: '8px' }}>
+              <label style={{ marginLeft: '8px', display: 'inline-flex', alignItems: 'center', gap: '4px', fontSize: '1rem' }}>
                 <input
                   type="checkbox"
                   checked={favoritos.includes(p.id)}
                   onChange={() => toggleFavorito(p.id)}
+                  style={{ verticalAlign: 'middle' }}
                 /> Mis Favoritos
               </label>
             </div>

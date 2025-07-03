@@ -11,10 +11,12 @@ import EditarProducto from './EditarProducto';
 import Papelera from './Papelera';
 import AcercaDe from './AcercaDe';
 import Login from './Login';
+import Registro from './Registro';
 import AdminRoute from './routes/AdminRoute';
 const AppRoutes = () => (
   <Routes>
     <Route path="/login" element={<Login />} />
+    <Route path="/registro" element={<Registro />} />
     <Route element={<AdminRoute />}>
     <Route element={<Layout />}>
     <Route path="/" element={<Inicio />} />

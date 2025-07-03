@@ -25,6 +25,7 @@ const Layout = () => {
             <Link to="/productos" style={{ margin: '0 8px' }}>Productos</Link>
             <Link to="/favoritos" style={{ margin: '0 8px' }}>Mis Favoritos</Link>
             <Link to="/edicion" style={{ margin: '0 8px' }}>Edición</Link>
+            <Link to="/papelera" style={{ margin: '0 8px' }}>Papelera</Link>
             <Link to="/acerca" style={{ margin: '0 8px' }}>Nosotros</Link>
           </nav>
         </div>

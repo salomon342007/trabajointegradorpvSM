@@ -7,44 +7,47 @@ const Login = () => {
   const { login } = useContext(AuthContext);
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const [msg, setMsg] = useState('');
-  const [msgType, setMsgType] = useState('');
+  const [userMsg, setUserMsg] = useState('');
+  const [passMsg, setPassMsg] = useState('');
+  const [generalMsg, setGeneralMsg] = useState('');
   const navigate = useNavigate();
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (!username.trim() && !password.trim()) {
-      setMsg('El campo usuario es obligatorio: rellénalo. El campo contraseña es obligatorio: rellénalo.');
-      setMsgType('error');
-      return;
-    }
+    let hasError = false;
+    setUserMsg('');
+    setPassMsg('');
+    setGeneralMsg('');
     if (!username.trim()) {
-      setMsg('El campo usuario es obligatorio: rellénalo.');
-      setMsgType('error');
-      return;
+      setUserMsg('El campo usuario es obligatorio: rellénalo.');
+      hasError = true;
     }
     if (!password.trim()) {
-      setMsg('El campo contraseña es obligatorio: rellénalo.');
-      setMsgType('error');
-      return;
+      setPassMsg('El campo contraseña es obligatorio: rellénalo.');
+      hasError = true;
     }
+    if (hasError) return;
     const ok = login(username, password);
     if (ok) {
-      setMsg('');
-      setMsgType('');
+      setUserMsg('');
+      setPassMsg('');
+      setGeneralMsg('');
       navigate('/');
     } else {
-      setMsg('Usuario o contraseña incorrectos');
-      setMsgType('error');
+      setGeneralMsg('Usuario o contraseña incorrectos');
     }
   };
 
   useEffect(() => {
-    if (msg && msgType === 'error') {
-      const timer = setTimeout(() => setMsg(''), 3000);
+    if (userMsg || passMsg || generalMsg) {
+      const timer = setTimeout(() => {
+        setUserMsg('');
+        setPassMsg('');
+        setGeneralMsg('');
+      }, 3000);
       return () => clearTimeout(timer);
     }
-  }, [msg, msgType]);
+  }, [userMsg, passMsg, generalMsg]);
 
   return (
     <div style={{ maxWidth: '400px', margin: '40px auto', textAlign: 'center' }}>
@@ -53,7 +56,7 @@ const Login = () => {
         <span style={{ fontWeight: 'bold', fontSize: '1.5rem', fontFamily: "'Times New Roman', Times, serif" }}>BizBay</span>
       </div>
       <h2>Login</h2>
-      {msg && (
+      {generalMsg && (
         <div style={{
           background: '#fdecea',
           color: '#e74c3c',
@@ -63,22 +66,32 @@ const Login = () => {
           marginBottom: '12px',
           textAlign: 'center',
           fontWeight: 'bold'
-        }}>{msg}</div>
+        }}>{generalMsg}</div>
       )}
       <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
-        <input
-          placeholder="Usuario"
-          value={username}
-          onChange={e => setUsername(e.target.value)}
-          style={{ padding: '8px', fontSize: '1rem' }}
-        />
-        <input
-          type="password"
-          placeholder="Contraseña"
-          value={password}
-          onChange={e => setPassword(e.target.value)}
-          style={{ padding: '8px', fontSize: '1rem' }}
-        />
+        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'stretch' }}>
+          <input
+            placeholder="Usuario"
+            value={username}
+            onChange={e => setUsername(e.target.value)}
+            style={{ padding: '8px', fontSize: '1rem' }}
+          />
+          {userMsg && (
+            <span style={{ color: '#e74c3c', fontSize: '0.95rem', marginTop: '2px', textAlign: 'left' }}>{userMsg}</span>
+          )}
+        </div>
+        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'stretch' }}>
+          <input
+            type="password"
+            placeholder="Contraseña"
+            value={password}
+            onChange={e => setPassword(e.target.value)}
+            style={{ padding: '8px', fontSize: '1rem' }}
+          />
+          {passMsg && (
+            <span style={{ color: '#e74c3c', fontSize: '0.95rem', marginTop: '2px', textAlign: 'left' }}>{passMsg}</span>
+          )}
+        </div>
         <button type="submit" style={{
           padding: '10px',
           backgroundColor: '#2ecc71',

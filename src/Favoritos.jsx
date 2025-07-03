@@ -15,15 +15,8 @@ const Favoritos = () => {
       ) : (
         favs.map(p => (
           <div key={p.id} style={{ border: '1px solid #ccc', borderRadius: '4px', padding: '12px', margin: '10px 0', display: 'flex', alignItems: 'center' }}>
-            {p.image && (
-              <img
-                src={p.image}
-                alt={p.name}
-                style={{ width: '100px', height: '100px', objectFit: 'cover', marginRight: '16px' }}
-              />
-            )}
             <div style={{ flex: 1 }}>
-              <h3 style={{ margin: '0 0 8px 0' }}>{p.name}</h3>
+              <h3 style={{ margin: '0 0 8px 0' }}>{p.title}</h3>
               <p style={{ margin: '0 0 4px 0' }}><strong>Precio:</strong> ${p.price}</p>
               <p style={{ margin: '0 0 4px 0' }}><strong>Categoría:</strong> {p.category}</p>
               <p style={{ margin: '0 0 8px 0' }}>{p.description}</p>
@@ -45,6 +38,11 @@ const Favoritos = () => {
                 /> Favorito
               </label>
             </div>
+            <img
+              src={p.image}
+              alt={p.title}
+              style={{ width: '100px', height: '100px', objectFit: 'cover', marginRight: '16px' }}
+            />
           </div>
         ))
       )}

@@ -45,6 +45,7 @@ export const ProductosProvider = ({ children }) => {
   return (
     <ProductosContext.Provider value={{
       productos,
+      setProductos,
       favoritos,
       papelera,
       addProducto,

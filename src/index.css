@@ -1,68 +1,144 @@
 :root {
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
-
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
-
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
-}
-a:hover {
-  color: #535bf2;
+  --primary: #3498db;
+  --secondary: #2ecc71;
+  --danger: #e74c3c;
+  --bg: #ffffff;
+  --text: #181818; /* Más oscuro para mejor contraste */
+  --heading: #22223b; /* Color para títulos */
+  --card-bg: #fff;
+  --border: #e1e4e8;
+  --radius: 10px;
+  --shadow: 0 2px 8px rgba(0,0,0,0.07);
 }
 
 body {
   margin: 0;
-  display: flex;
-  place-items: center;
-  min-width: 320px;
   min-height: 100vh;
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Montserrat', 'Segoe UI', 'Roboto', Arial, sans-serif; /* Fuente moderna */
+  letter-spacing: 0.02em;
 }
 
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
+header {
+  background: #ffffff; /* Cambia este valor por el color que prefieras */
+  color: #2539b9;
+  box-shadow: var(--shadow);
+  border-radius: 0 0 var(--radius) var(--radius);
+}
+
+nav a {
+  color: #000000;
+  font-weight: 600;
+  margin: 0 10px;
+  text-decoration: none;
+  transition: color 0.2s;
+  font-family: 'Montserrat', 'Segoe UI', 'Roboto', Arial, sans-serif;
+  letter-spacing: 0.04em;
+}
+nav a:hover {
+  color: var(--secondary);
+  text-shadow: 0 1px 4px #2223;
+}
+
+main {
+  padding: 32px 0;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+h1, h2, h3, h4 {
+  color: var(--heading);
+  font-family: 'Montserrat', 'Segoe UI', 'Roboto', Arial, sans-serif;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  margin-bottom: 12px;
+  text-shadow: 0 2px 8px #4b4a4a;
+}
+
+.card, .producto, .favorito, .papelera-item {
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 20px;
+  margin-bottom: 20px;
+  transition: box-shadow 0.2s;
+  color: var(--text);
+  font-family: 'Montserrat', 'Segoe UI', 'Roboto', Arial, sans-serif;
+}
+
+.card:hover, .producto:hover, .favorito:hover, .papelera-item:hover {
+  box-shadow: 0 4px 16px rgba(52,152,219,0.10);
 }
 
 button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  background-color: #1a1a1a;
+  background: var(--primary);
+  color: #fff;
+  border: none;
+  border-radius: var(--radius);
+  padding: 8px 18px;
+  font-size: 1rem;
+  font-weight: 600;
   cursor: pointer;
-  transition: border-color 0.25s;
+  margin-right: 8px;
+  transition: background 0.2s, color 0.2s;
+  font-family: 'Montserrat', 'Segoe UI', 'Roboto', Arial, sans-serif;
+  letter-spacing: 0.04em;
+  box-shadow: 0 1px 4px #2221;
 }
 button:hover {
-  border-color: #646cff;
-}
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
+  background: var(--secondary);
+  color: #222;
 }
 
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
+button[style*="background-color: #e74c3c"] {
+  background: var(--danger) !important;
+}
+button[style*="background-color: #e74c3c"]:hover {
+  background: #c0392b !important;
+  color: #fff !important;
+}
+
+input, textarea {
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 10px;
+  font-size: 1rem;
+  margin-bottom: 8px;
+  width: 100%;
+  box-sizing: border-box;
+  background: #fff;
+  color: #181818;
+  font-family: 'Montserrat', 'Segoe UI', 'Roboto', Arial, sans-serif;
+  letter-spacing: 0.02em;
+  transition: border 0.2s, box-shadow 0.2s;
+}
+input:focus, textarea:focus {
+  border: 1.5px solid var(--primary);
+  outline: none;
+  box-shadow: 0 0 4px #3498db44;
+}
+
+img {
+  border-radius: var(--radius);
+  box-shadow: 0 1px 6px rgba(0,0,0,0.06);
+}
+
+ul {
+  padding-left: 20px;
+  color: var(--text);
+  font-family: 'Montserrat', 'Segoe UI', 'Roboto', Arial, sans-serif;
+}
+
+@media (max-width: 700px) {
+  main {
+    padding: 12px 0;
   }
-  a:hover {
-    color: #747bff;
-  }
-  button {
-    background-color: #f9f9f9;
+  .card, .producto, .favorito, .papelera-item {
+    padding: 12px;
   }
 }
+
+/* Importa la fuente Montserrat de Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap');

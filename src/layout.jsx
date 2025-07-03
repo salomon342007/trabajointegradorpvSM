@@ -1,11 +1,12 @@
 import React, { useContext } from 'react';
 import { Link, Outlet } from 'react-router-dom';
 import { AuthContext } from './context/AuthContext';
+import logo from './pictures/logo.jpg'; // importa el logo
 
 const Layout = () => {
   const { user, logout } = useContext(AuthContext);
   return (
-    <div>
+    <div style={{ fontFamily: "'Times New Roman', Times, serif" }}>
       <header style={{
         padding: '10px',
         backgroundColor: '#ddd',
@@ -13,11 +14,11 @@ const Layout = () => {
         justifyContent: 'space-between',
         alignItems: 'center'
       }}>
-        {/* Logo e nombre */}
+        {/* Logo e nome */}
         <div style={{ display: 'flex', alignItems: 'center' }}>
-          <Link to="/" style={{ textDecoration: 'none', color: 'inherit', fontWeight: 'bold', marginRight: '20px' }}>
-            {/* Aquí podrías poner una img de logo */}
-            ShoppiNine
+          <Link to="/" style={{ textDecoration: 'none', color: 'inherit', fontWeight: 'bold', marginRight: '20px', display: 'flex', alignItems: 'center' }}>
+            <img src={logo} alt="Logo" style={{ height: '40px', marginRight: '10px', borderRadius: '8px' }} />
+            BizBay
           </Link>
           {/* Links de navegación */}
           <nav>

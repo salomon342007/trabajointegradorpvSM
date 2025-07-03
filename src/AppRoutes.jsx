@@ -13,6 +13,8 @@ import AcercaDe from './AcercaDe';
 import Login from './Login';
 import Registro from './Registro';
 import AdminRoute from './routes/AdminRoute';
+import Carrito from './Carrito';
+
 const AppRoutes = () => (
   <Routes>
     <Route path="/login" element={<Login />} />
@@ -28,6 +30,7 @@ const AppRoutes = () => (
         <Route path="/product/:id" element={<VerDetalles />} />
         <Route path="/papelera" element={<Papelera />} />
         <Route path="/acerca" element={<AcercaDe />} />
+        <Route path="/carrito" element={<Carrito />} />
       </Route>
     </Route>
   </Routes>

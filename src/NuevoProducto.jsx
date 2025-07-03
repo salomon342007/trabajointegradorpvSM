@@ -1,9 +1,11 @@
 import React, { useContext, useState } from 'react';
 import { ProductosContext } from './context/ProductosContext';
+import { AuthContext } from './context/AuthContext';
 import { useNavigate } from 'react-router-dom';
 
 const NuevoProducto = () => {
   const { addProducto } = useContext(ProductosContext);
+  const { user, isAdmin } = useContext(AuthContext);
   const navigate = useNavigate();
 
   const [form, setForm] = useState({
@@ -35,6 +37,10 @@ const NuevoProducto = () => {
     navigate('/edicion');
   };
 
+  if (!isAdmin) {
+    return <p style={{color:'#e74c3c'}}>Acceso solo para administradores.</p>;
+  }
+
   return (
     <div>
       <h2>Nuevo Producto</h2>
@@ -60,4 +66,4 @@ const NuevoProducto = () => {
 };
 
 export default NuevoProducto;
-// Este componente permite al usuario agregar un nuevo producto mediante un formulario.
+// Este componente permite al usuario agregar un nuevo producto mediante un formulario. Solo los administradores pueden acceder a esta función.

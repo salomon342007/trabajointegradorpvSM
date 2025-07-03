@@ -36,8 +36,8 @@ const Edicion = () => {
   const handleChange = (e) => {
     const { name, value } = e.target;
     if (name === 'price') {
-      // Solo permitir números (sin letras, puntos ni símbolos)
-      let val = value.replace(/[^0-9]/g, '');
+      // Permitir números, puntos y comas
+      let val = value.replace(/[^0-9.,]/g, '');
       setForm(prev => ({ ...prev, [name]: val }));
     } else {
       setForm(prev => ({ ...prev, [name]: value }));
@@ -59,16 +59,18 @@ const Edicion = () => {
       setMensaje({ tipo: 'error', texto: 'El campo precio es obligatorio: rellénalo.' });
       return;
     }
-    // Validar que el precio sea estrictamente numérico y mayor a 0
-    if (!/^[0-9]+$/.test(form.price) || parseInt(form.price, 10) <= 0) {
-      setMensaje({ tipo: 'error', texto: 'El precio debe ser un número entero positivo.' });
+    // Validar que el precio sea numérico y mayor a 0 (aceptando . y ,)
+    const precioStr = form.price.replace(',', '.');
+    const precioNum = parseFloat(precioStr);
+    if (isNaN(precioNum) || precioNum <= 0) {
+      setMensaje({ tipo: 'error', texto: 'El precio debe ser un número positivo.' });
       return;
     }
     // Construir objeto producto
     const productoData = {
       id: form.id,
       name: form.name.trim(),
-      price: parseInt(form.price, 10),
+      price: precioNum,
       category: form.category.trim(),
       image: form.image.trim(),
       description: form.description.trim()
@@ -121,38 +123,6 @@ const Edicion = () => {
           fontWeight: 'bold'
         }}>{mensaje.texto}</div>
       )}
-      {confirmarBorrado.mostrar && (
-        <div style={{
-          background: '#fffbe6',
-          color: '#b26a00',
-          border: '1px solid #f1c40f',
-          borderRadius: '4px',
-          padding: '16px',
-          marginBottom: '16px',
-          textAlign: 'center',
-          fontWeight: 'bold',
-          zIndex: 10
-        }}>
-          <p>¿Seguro que deseas borrar el producto "{confirmarBorrado.nombre}"?</p>
-          <button onClick={confirmarEliminar} style={{
-            marginRight: '12px',
-            padding: '8px 16px',
-            backgroundColor: '#e74c3c',
-            color: '#fff',
-            border: 'none',
-            borderRadius: '4px',
-            cursor: 'pointer'
-          }}>Sí, borrar</button>
-          <button onClick={cancelarEliminar} style={{
-            padding: '8px 16px',
-            backgroundColor: '#3498db',
-            color: '#fff',
-            border: 'none',
-            borderRadius: '4px',
-            cursor: 'pointer'
-          }}>Cancelar</button>
-        </div>
-      )}
       <form onSubmit={handleSubmit} style={{ display: 'flex', flexWrap: 'wrap', gap: '12px', marginBottom: '20px' }}>
         <input
           name="name"
@@ -168,9 +138,6 @@ const Edicion = () => {
           placeholder="Precio"
           style={{ flex: '1 1 100px', padding: '8px' }}
           type="text"
-          inputMode="numeric"
-          pattern="[0-9]*"
-          minLength={1}
         />
         <input
           name="category"
@@ -209,36 +176,70 @@ const Edicion = () => {
       <h3>Productos existentes</h3>
       {productos.length === 0 && <p>No hay productos cargados.</p>}
       {productos.map(p => (
-        <div key={p.id} style={{ border: '1px solid #ccc', borderRadius: '4px', padding: '12px', margin: '10px 0', display: 'flex', alignItems: 'center' }}>
-          {p.image && (
-            <img src={p.image} alt={p.name} style={{ width: '80px', height: '80px', objectFit: 'cover', marginRight: '16px' }} />
+        <div key={p.id} style={{ border: '1px solid #ccc', borderRadius: '4px', padding: '12px', margin: '10px 0', display: 'flex', flexDirection: 'column' }}>
+          {confirmarBorrado.mostrar && confirmarBorrado.id === p.id && (
+            <div style={{
+              background: '#fffbe6',
+              color: '#b26a00',
+              border: '1px solid #f1c40f',
+              borderRadius: '4px',
+              padding: '16px',
+              marginBottom: '10px',
+              textAlign: 'center',
+              fontWeight: 'bold',
+              zIndex: 10
+            }}>
+              <p>¿Seguro que deseas borrar el producto "{confirmarBorrado.nombre}"?</p>
+              <button onClick={confirmarEliminar} style={{
+                marginRight: '12px',
+                padding: '8px 16px',
+                backgroundColor: '#e74c3c',
+                color: '#fff',
+                border: 'none',
+                borderRadius: '4px',
+                cursor: 'pointer'
+              }}>Sí, borrar</button>
+              <button onClick={cancelarEliminar} style={{
+                padding: '8px 16px',
+                backgroundColor: '#3498db',
+                color: '#fff',
+                border: 'none',
+                borderRadius: '4px',
+                cursor: 'pointer'
+              }}>Cancelar</button>
+            </div>
           )}
-          <div style={{ flex: 1 }}>
-            <h3 style={{ margin: '0 0 4px 0', color: '#2d3436', fontWeight: 'bold' }}>
-              {p.name && p.name.trim() ? p.name : (p.title && p.title.trim() ? p.title : 'Sin nombre')}
-            </h3>
-            <p style={{ margin: '0 0 4px 0' }}><strong>Precio:</strong> ${p.price}</p>
-            <p style={{ margin: '0 0 4px 0' }}><strong>Categoría:</strong> {p.category}</p>
-            <p style={{ margin: '0 0 8px 0' }}>{p.description}</p>
-          </div>
-          <div>
-            <button onClick={() => handlePreload(p)} style={{
-              marginRight: '8px',
-              padding: '6px 12px',
-              backgroundColor: '#3498db',
-              color: '#fff',
-              border: 'none',
-              borderRadius: '4px',
-              cursor: 'pointer'
-            }}>Editar</button>
-            <button onClick={() => handleDelete(p.id, p.name && p.name.trim() ? p.name : (p.title && p.title.trim() ? p.title : 'Sin nombre'))} style={{
-              padding: '6px 12px',
-              backgroundColor: '#e74c3c',
-              color: '#fff',
-              border: 'none',
-              borderRadius: '4px',
-              cursor: 'pointer'
-            }}>Borrar</button>
+          <div style={{ display: 'flex', alignItems: 'center' }}>
+            {p.image && (
+              <img src={p.image} alt={p.name} style={{ width: '80px', height: '80px', objectFit: 'cover', marginRight: '16px' }} />
+            )}
+            <div style={{ flex: 1 }}>
+              <h3 style={{ margin: '0 0 4px 0', color: '#2d3436', fontWeight: 'bold' }}>
+                {p.name && p.name.trim() ? p.name : (p.title && p.title.trim() ? p.title : 'Sin nombre')}
+              </h3>
+              <p style={{ margin: '0 0 4px 0' }}><strong>Precio:</strong> ${p.price}</p>
+              <p style={{ margin: '0 0 4px 0' }}><strong>Categoría:</strong> {p.category}</p>
+              <p style={{ margin: '0 0 8px 0' }}>{p.description}</p>
+            </div>
+            <div>
+              <button onClick={() => handlePreload(p)} style={{
+                marginRight: '8px',
+                padding: '6px 12px',
+                backgroundColor: '#3498db',
+                color: '#fff',
+                border: 'none',
+                borderRadius: '4px',
+                cursor: 'pointer'
+              }}>Editar</button>
+              <button onClick={() => handleDelete(p.id, p.name && p.name.trim() ? p.name : (p.title && p.title.trim() ? p.title : 'Sin nombre'))} style={{
+                padding: '6px 12px',
+                backgroundColor: '#e74c3c',
+                color: '#fff',
+                border: 'none',
+                borderRadius: '4px',
+                cursor: 'pointer'
+              }}>Borrar</button>
+            </div>
           </div>
         </div>
       ))}

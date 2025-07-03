@@ -10,4 +10,4 @@ const Inicio = () => {
   );
   };
 
-export default Inicio;ñ
+export default Inicio;

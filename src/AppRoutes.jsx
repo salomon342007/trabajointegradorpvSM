@@ -1,5 +1,5 @@
 import React from 'react';
-import { Routes, Route, Navigate } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 import Layout from './Layout';
 import Inicio from './Inicio';
 import Productos from './Productos';
@@ -10,31 +10,34 @@ import NuevoProducto from './NuevoProducto';
 import EditarProducto from './EditarProducto';
 import Papelera from './Papelera';
 import AcercaDe from './AcercaDe';
+import Carrito from './Carrito';
+import NotFound from './NotFound';
 import Login from './Login';
 import Registro from './Registro';
 import AdminRoute from './routes/AdminRoute';
-import Carrito from './Carrito';
-import NotFound from './NotFound';
 
 const AppRoutes = () => (
   <Routes>
-    <Route path="/login" element={<Login />} />
-    <Route path="/registro" element={<Registro />} />
-    <Route element={<AdminRoute />}>
     <Route element={<Layout />}>
-    <Route path="/" element={<Inicio />} />
-        <Route path="/productos" element={<Productos />} />
-        <Route path="/favoritos" element={<Favoritos />} />
+      <Route path="/" element={<Inicio />} />
+      <Route path="/productos" element={<Productos />} />
+      <Route path="/favoritos" element={<Favoritos />} />
+      <Route path="/acerca" element={<AcercaDe />} />
+      <Route path="/carrito" element={<Carrito />} />
+      <Route path="/login" element={<Login />} />
+      <Route path="/registro" element={<Registro />} />
+      <Route path="/product/:id" element={<VerDetalles />} />
+
+      {/* Solo las rutas de admin van protegidas */}
+      <Route element={<AdminRoute />}>
         <Route path="/edicion" element={<Edicion />} />
         <Route path="/nuevo" element={<NuevoProducto />} />
         <Route path="/editar/:id" element={<EditarProducto />} />
-        <Route path="/product/:id" element={<VerDetalles />} />
         <Route path="/papelera" element={<Papelera />} />
-        <Route path="/acerca" element={<AcercaDe />} />
-        <Route path="/carrito" element={<Carrito />} />
       </Route>
+
+      <Route path="*" element={<NotFound />} />
     </Route>
-    <Route path="*" element={<NotFound />} />
   </Routes>
 );
 

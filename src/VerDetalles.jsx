@@ -1,10 +1,13 @@
 import React, { useContext } from 'react';
 import { useParams } from 'react-router-dom';
 import { ProductosContext } from './context/ProductosContext';
+import { AuthContext } from './context/AuthContext';
 
 const VerDetalles = () => {
   const { id } = useParams();
   const { productos, favoritos, toggleFavorito, papelera } = useContext(ProductosContext);
+  const { user } = useContext(AuthContext);
+
   let p = productos.find(item => item.id === parseInt(id));
   let enPapelera = false;
   // Si no se encuentra en productos, buscar en papelera
@@ -29,7 +32,13 @@ const VerDetalles = () => {
           <input
             type="checkbox"
             checked={favoritos.includes(p.id)}
-            onChange={() => toggleFavorito(p.id)}
+            onChange={() => {
+              if (!user) {
+                alert("Debes iniciar sesión para marcar favoritos.");
+                return;
+              }
+              toggleFavorito(p.id);
+            }}
           /> Marcar como Favorito
         </label>
       )}

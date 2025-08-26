@@ -9,7 +9,7 @@ const Productos = () => {
   const [filtro, setFiltro] = useState('todos');
   const [cantidades, setCantidades] = useState({});
   const navigate = useNavigate();
-  const { isAdmin } = useContext(AuthContext);
+  const { isAdmin, user } = useContext(AuthContext);
   const { addToCarrito } = useContext(CarritoContext);
 
   const productosFiltrados = useMemo(() => {
@@ -118,7 +118,14 @@ const Productos = () => {
                       flex: 1
                     }}>Detalles</button>
                     <button
-                      onClick={() => handleAgregarCarrito(p)}
+                      onClick={() => {
+                        if (!user) {
+                          alert("Debes iniciar sesión para agregar productos al carrito.");
+                          // Opcional: abrir modal de login aquí
+                          return;
+                        }
+                        handleAgregarCarrito(p);
+                      }}
                       style={{
                         backgroundColor: '#27ae60',
                         color: '#fff',
@@ -136,7 +143,13 @@ const Productos = () => {
                     <input
                       type="checkbox"
                       checked={favoritos.includes(p.id)}
-                      onChange={() => toggleFavorito(p.id)}
+                      onChange={() => {
+                        if (!user) {
+                          alert("Debes iniciar sesión para marcar favoritos.");
+                          return;
+                        }
+                        toggleFavorito(p.id);
+                      }}
                       style={{ verticalAlign: 'middle' }}
                     /> Mis Favoritos
                   </label>

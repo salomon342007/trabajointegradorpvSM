@@ -1,6 +1,7 @@
 import React, { useContext, useState, useEffect } from 'react';
 import { ProductosContext } from './context/ProductosContext';
 import { useNavigate } from 'react-router-dom';
+import { Link } from "react-router-dom";
 
 const Edicion = () => {
   const { productos, addProducto, editProducto, deleteProducto } = useContext(ProductosContext);
@@ -112,16 +113,19 @@ const Edicion = () => {
     <div>
       <h2>Edición de Productos</h2>
       {mensaje.texto && (
-        <div style={{
-          background: mensaje.tipo === 'error' ? '#fdecea' : '#eafaf1',
-          color: mensaje.tipo === 'error' ? '#e74c3c' : '#27ae60',
-          border: `1px solid ${mensaje.tipo === 'error' ? '#e74c3c' : '#27ae60'}`,
-          borderRadius: '4px',
-          padding: '10px',
-          marginBottom: '12px',
-          textAlign: 'center',
-          fontWeight: 'bold'
-        }}>{mensaje.texto}</div>
+        <div
+          style={{
+            background: mensaje.tipo === 'error' ? '#fdecea' : '#eafaf1',
+            color: mensaje.tipo === 'error' ? '#e74c3c' : '#27ae60',
+            border: `1px solid ${mensaje.tipo === 'error' ? '#e74c3c' : '#27ae60'}`,
+            borderRadius: '8px',
+            padding: '10px',
+            marginBottom: '16px',
+            fontWeight: 600,
+          }}
+        >
+          {mensaje.texto}
+        </div>
       )}
       <form onSubmit={handleSubmit} style={{ display: 'flex', flexWrap: 'wrap', gap: '12px', marginBottom: '20px' }}>
         <input
@@ -247,4 +251,15 @@ const Edicion = () => {
   );
 };
 
-export default Edicion;
+const NotFound = () => (
+  <div style={{ textAlign: "center", marginTop: "60px" }}>
+    <h1>404</h1>
+    <p>Página no encontrada.</p>
+    <Link to="/">Volver al inicio</Link>
+  </div>
+);
+
+export default () => {
+  const { productos } = useContext(ProductosContext);
+  return productos.length === 0 ? <NotFound /> : <Edicion />;
+};

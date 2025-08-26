@@ -14,6 +14,7 @@ import Login from './Login';
 import Registro from './Registro';
 import AdminRoute from './routes/AdminRoute';
 import Carrito from './Carrito';
+import NotFound from './NotFound';
 
 const AppRoutes = () => (
   <Routes>
@@ -33,8 +34,7 @@ const AppRoutes = () => (
         <Route path="/carrito" element={<Carrito />} />
       </Route>
     </Route>
-    {/* Ruta catch-all para redirigir a login si la URL no existe */}
-    <Route path="*" element={<Navigate to="/login" replace />} />
+    <Route path="*" element={<NotFound />} />
   </Routes>
 );
 

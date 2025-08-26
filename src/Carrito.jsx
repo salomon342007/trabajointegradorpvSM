@@ -2,7 +2,7 @@ import React, { useContext, useState } from 'react';
 import { CarritoContext } from './context/CarritoContext';
 
 const Carrito = () => {
-  const { carrito, removeFromCarrito, clearCarrito } = useContext(CarritoContext);
+  const { carrito, removeFromCarrito, clearCarrito, setCarrito, addToCarrito } = useContext(CarritoContext);
   const [compraExitosa, setCompraExitosa] = useState(false);
 
   const total = carrito.reduce((acc, p) => acc + (p.price * (p.cantidad || 1)), 0);

@@ -3,7 +3,6 @@ import { ProductosContext } from './context/ProductosContext';
 import { useNavigate } from 'react-router-dom';
 import { AuthContext } from './context/AuthContext';
 import { CarritoContext } from './context/CarritoContext';
-import Login from './Login'; // Asegúrate de importar el componente Login
 
 const Productos = () => {
   const { productos, favoritos, toggleFavorito } = useContext(ProductosContext);

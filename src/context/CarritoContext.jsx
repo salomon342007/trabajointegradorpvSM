@@ -6,7 +6,21 @@ export const CarritoProvider = ({ children }) => {
   const [carrito, setCarrito] = useState([]);
 
   const addToCarrito = (producto) => {
-    setCarrito(prev => [...prev, producto]);
+    setCarrito(carritoActual => {
+      const existe = carritoActual.find(p => p.id === producto.id);
+      const cantidadAgregar = producto.cantidad || 1;
+      if (existe) {
+        // Suma la cantidad seleccionada
+        return carritoActual.map(p =>
+          p.id === producto.id
+            ? { ...p, cantidad: (p.cantidad || 1) + cantidadAgregar }
+            : p
+        );
+      } else {
+        // Agrega con la cantidad seleccionada
+        return [...carritoActual, { ...producto, cantidad: cantidadAgregar }];
+      }
+    });
   };
 
   const removeFromCarrito = (id) => {
@@ -16,7 +30,13 @@ export const CarritoProvider = ({ children }) => {
   const clearCarrito = () => setCarrito([]);
 
   return (
-    <CarritoContext.Provider value={{ carrito, addToCarrito, removeFromCarrito, clearCarrito }}>
+    <CarritoContext.Provider value={{
+      carrito,
+      setCarrito,
+      addToCarrito,
+      removeFromCarrito,
+      clearCarrito
+    }}>
       {children}
     </CarritoContext.Provider>
   );

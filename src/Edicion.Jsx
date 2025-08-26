@@ -25,7 +25,7 @@ const Edicion = () => {
   const handlePreload = (p) => {
     setForm({
       id: p.id,
-      name: p.name,
+     name: p.name && p.name.trim() ? p.name : (p.title && p.title.trim() ? p.title : ''),
       price: p.price,
       category: p.category,
       image: p.image,

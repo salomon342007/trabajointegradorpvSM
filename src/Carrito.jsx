@@ -77,7 +77,7 @@ const Carrito = () => {
               boxShadow: '0 2px 8px rgba(46,204,113,0.15)'
             }}
           >
-            
+
             Comprar todos los productos
           </button>
         </div>
@@ -85,5 +85,6 @@ const Carrito = () => {
     </div>
   );
 };
+
 
 export default Carrito;
